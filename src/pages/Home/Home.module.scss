@@ -3,10 +3,12 @@
 }
 
 .categorias {
+  margin-top: 2rem;
   align-items: center;
   display: flex;
   flex-direction: column;
   padding: 0 100px 0;
+  gap: 2rem;
   transform: translateY(-250px);
   h1 {
     color: white;
@@ -23,6 +25,7 @@
       align-items: center;
       cursor: pointer;
       display: flex;
+      gap: 1rem;
       flex-direction: column;
       h1 {
         color: #041833;
