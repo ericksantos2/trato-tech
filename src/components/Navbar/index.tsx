@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import classNames from 'classnames';
 import { RiShoppingCart2Line, RiShoppingCartFill } from 'react-icons/ri';
 import Busca from '../Busca';
+import { Link } from 'react-router-dom';
 
 const iconeProps = {
   color: 'white',
@@ -15,14 +16,14 @@ export default function Navbar() {
       <Logo className={styles.logo} />
       <div className={styles.links}>
         <div>
-          <a
-            href='/'
+          <Link
+            to='/'
             className={classNames(styles.link, {
               [styles.selected]: window.location.pathname === '/',
             })}
           >
             Página inicial
-          </a>
+          </Link>
         </div>
       </div>
       <div className={styles.busca}>
