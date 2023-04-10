@@ -20,7 +20,7 @@ export default function Categoria() {
       itens: state.itens.filter((item) => item.categoria === nomeCategoria),
     })
   );
-  if (!categoria) return;
+  if (!categoria) {throw new Error('Categoria inexistente!')};
 
   return (
     <div>
