@@ -5,6 +5,7 @@ import { RootState } from '../../store';
 import { ICategoria } from '../../store/reducers/categorias';
 import { Iitem } from '../../store/reducers/itens';
 import styles from './Categoria.module.scss';
+import Item from '../../components/Item';
 
 export default function Categoria() {
   const { nomeCategoria } = useParams();
@@ -31,9 +32,7 @@ export default function Categoria() {
       />
       <div className={styles.itens}>
         {itens?.map((item: Iitem) => (
-          <div key={item.id}>
-            {item.titulo}
-          </div>
+          <Item key={item.id} {...item} />
         ))}
       </div>
     </div>
