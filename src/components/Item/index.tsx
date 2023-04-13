@@ -5,16 +5,22 @@ import { FaCartPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { mudarCarrinho } from '../../store/reducers/carrinho';
 import { RootState } from '../../store';
+import classNames from 'classnames';
 
 const iconeProps = {
   size: 24,
   color: '#041833',
 };
 
-export default function Item(props: Iitem) {
-  const { titulo, foto, preco, descricao, favorito, id } = props;
+interface Props extends Iitem {
+  carrinho?: boolean;
+}
+
+export default function Item(props: Props) {
+  const { titulo, foto, preco, descricao, favorito, id, carrinho } = props;
+  if (!preco) {throw new Error('há props necessárias que não foram passadas')};
   const dispatch = useDispatch();
-  const estaNoCarrinho = useSelector((state: RootState) => state.carrinho.some((itemNoCarrinho: any) => itemNoCarrinho.id === id));
+  const estaNoCarrinho = useSelector((state: RootState) => state.carrinho.some((itemNoCarrinho: Iitem) => itemNoCarrinho.id === id));
 
   function resolverFavorito() {
     dispatch(mudarFavorito(id))
@@ -25,7 +31,9 @@ export default function Item(props: Iitem) {
   }
 
   return (
-    <div className={styles.item}>
+    <div className={classNames(styles.item, {
+      [styles.itemNoCarrinho]: carrinho
+    })}>
       <div className={styles['item-imagem']}>
         <img src={foto} alt={titulo} />
       </div>
