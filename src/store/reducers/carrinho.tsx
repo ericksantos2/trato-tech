@@ -1,18 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Iitem } from './itens';
 
-interface ICarrinho {
-  id: string,
-  quantidade: number
-}
-
-const initialState: any = [];
+const initialState: Iitem[] = [];
 
 const carrinhoSlice = createSlice({
   name: 'carrinho',
   initialState,
   reducers: {
     mudarCarrinho: (state, { payload }) => {
-      const temItem = state.some((item: any) => item.id === payload);
+      const temItem = state.some((item: Iitem) => item.id === payload);
       if (!temItem) return [
         ...state,
         {
@@ -20,7 +16,7 @@ const carrinhoSlice = createSlice({
           quantidade: 1
         }
       ]
-      return state.filter((item: any) => item.id !== payload);
+      return state.filter((item: Iitem) => item.id !== payload);
     }
   }
 })
