@@ -27,13 +27,14 @@ import miniSystem from '@/assets/itens/mini-system.png';
 import tablet from '@/assets/itens/tablet.png';
 
 export interface Iitem {
-  titulo: string,
-  descricao: string,
-  foto: string,
-  favorito: boolean,
-  preco: number,
+  titulo?: string,
+  descricao?: string,
+  foto?: string,
+  favorito?: boolean,
+  preco?: number,
+  categoria?: string,
+  quantidade?: number
   id: string,
-  categoria: string
 }
 
 const initialState: Iitem[] = [{
