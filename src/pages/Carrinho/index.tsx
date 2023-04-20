@@ -5,6 +5,7 @@ import { RootState } from '../../store';
 import Item from '../../components/Item';
 import { Iitem } from '../../store/reducers/itens';
 import { resetarCarrinho } from '../../store/reducers/carrinho';
+import Button from '../../components/Button';
 
 export default function Carrinho() {
   const dispatch = useDispatch();
@@ -52,12 +53,9 @@ export default function Carrinho() {
             Subtotal: <strong> R$ {total.toFixed(2)} </strong>
           </span>
         </div>
-        <button
-          className={styles.finalizar}
-          onClick={() => dispatch(resetarCarrinho())}
-        >
+        <Button onClick={() => dispatch(resetarCarrinho())}>
           Finalizar compra
-        </button>
+        </Button>
       </div>
     </div>
   );
