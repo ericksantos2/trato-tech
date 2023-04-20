@@ -9,19 +9,26 @@ import Item from '../../components/Item';
 
 export default function Categoria() {
   const { nomeCategoria } = useParams();
-
   const {
     categoria,
     itens,
   }: { categoria: ICategoria | undefined; itens: Iitem[] } = useSelector(
-    (state: RootState) => ({
-      categoria: state.categorias.find(
-        (categoria) => categoria.id === nomeCategoria
-      ),
-      itens: state.itens.filter((item) => item.categoria === nomeCategoria),
-    })
+    (state: RootState) => {
+      const regexp = new RegExp(state.busca, 'i');
+      return {
+        categoria: state.categorias.find(
+          (categoria) => categoria.id === nomeCategoria
+        ),
+        itens: state.itens.filter(
+          (item) =>
+            item.categoria === nomeCategoria && item.titulo?.match(regexp)
+        ),
+      };
+    }
   );
-  if (!categoria) {throw new Error('Categoria inexistente!')};
+  if (!categoria) {
+    throw new Error('Categoria inexistente!');
+  }
 
   return (
     <div>
