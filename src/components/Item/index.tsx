@@ -1,9 +1,14 @@
 import { Iitem, mudarFavorito } from '../../store/reducers/itens';
 import styles from './Item.module.scss';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiFillMinusCircle,
+  AiFillPlusCircle,
+} from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { mudarCarrinho } from '../../store/reducers/carrinho';
+import { mudarCarrinho, mudarQuantidade } from '../../store/reducers/carrinho';
 import { RootState } from '../../store';
 import classNames from 'classnames';
 
@@ -12,28 +17,40 @@ const iconeProps = {
   color: '#041833',
 };
 
+const quantidadeProps = {
+  size: 32,
+  color: '#1875E8',
+};
+
 interface Props extends Iitem {
   carrinho?: boolean;
 }
 
 export default function Item(props: Props) {
-  const { titulo, foto, preco, descricao, favorito, id, carrinho } = props;
-  if (!preco) {throw new Error('há props necessárias que não foram passadas')};
+  const { titulo, foto, preco, descricao, favorito, id, carrinho, quantidade } =
+    props;
+  if (!preco) {
+    throw new Error('há props necessárias que não foram passadas');
+  }
   const dispatch = useDispatch();
-  const estaNoCarrinho = useSelector((state: RootState) => state.carrinho.some((itemNoCarrinho: Iitem) => itemNoCarrinho.id === id));
+  const estaNoCarrinho = useSelector((state: RootState) =>
+    state.carrinho.some((itemNoCarrinho: Iitem) => itemNoCarrinho.id === id)
+  );
 
   function resolverFavorito() {
-    dispatch(mudarFavorito(id))
+    dispatch(mudarFavorito(id));
   }
 
   function resolverCarrinho() {
-    dispatch(mudarCarrinho(id))
+    dispatch(mudarCarrinho(id));
   }
 
   return (
-    <div className={classNames(styles.item, {
-      [styles.itemNoCarrinho]: carrinho
-    })}>
+    <div
+      className={classNames(styles.item, {
+        [styles.itemNoCarrinho]: carrinho,
+      })}
+    >
       <div className={styles['item-imagem']}>
         <img src={foto} alt={titulo} />
       </div>
@@ -59,12 +76,29 @@ export default function Item(props: Props) {
                 onClick={resolverFavorito}
               />
             )}
-            <FaCartPlus
-              {...iconeProps}
-              color={estaNoCarrinho ? '#1875E8' : iconeProps.color}
-              className={styles['item-acao']}
-              onClick={resolverCarrinho}
-            />
+            {carrinho ? (
+              <div className={styles.quantidade}>
+                Quantidade:
+                <AiFillMinusCircle {...quantidadeProps} onClick={() => {
+                  if (quantidade === 0) return;
+                  dispatch(mudarQuantidade({ id, quantidade: -1 }))
+                }} />
+                <span>{String(quantidade || 0).padStart(2, '0')}</span>
+                <AiFillPlusCircle
+                  {...quantidadeProps}
+                  onClick={() =>
+                    dispatch(mudarQuantidade({ id, quantidade: 1 }))
+                  }
+                />
+              </div>
+            ) : (
+              <FaCartPlus
+                {...iconeProps}
+                color={estaNoCarrinho ? '#1875E8' : iconeProps.color}
+                className={styles['item-acao']}
+                onClick={resolverCarrinho}
+              />
+            )}
           </div>
         </div>
       </div>
