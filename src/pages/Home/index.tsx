@@ -4,6 +4,7 @@ import styles from './Home.module.scss';
 import relogio from '@/assets/inicial.png';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
+import Button from '../../components/Button';
 
 const descricao = 'Compre diversos tipos de produtos no melhor site do Brasil!';
 
@@ -17,7 +18,11 @@ export default function Home() {
         descricao={descricao}
         imagem={relogio}
         className={styles.header}
-      />
+      >
+        <Button onClick={() => navigate('/anuncie')}>
+          Quero anunciar
+        </Button>
+      </Header>
       <div className={styles.categorias}>
         <div className={styles['categorias-title']}>
           <h1>Categorias</h1>
