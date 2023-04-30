@@ -7,12 +7,14 @@ function Header({
   titulo,
   descricao,
   className = '',
-  imagem
+  imagem,
+  children
 }: {
   titulo: string;
   descricao: string;
   className?: string;
-  imagem?: string
+  imagem?: string,
+  children?: any
 }) {
   return (
     <header className={styles.header}>
@@ -20,7 +22,9 @@ function Header({
         <TituloSemImagem
           titulo={titulo}
           descricao={descricao}
-        />
+        >
+          {children}
+        </TituloSemImagem>
       }
       {titulo && imagem &&
         <TituloComImagem 
@@ -28,7 +32,9 @@ function Header({
           descricao={descricao}
           imagem={imagem}
           className={className}
-        />
+        >
+          {children}
+        </TituloComImagem>
       }
     </header>
   );
