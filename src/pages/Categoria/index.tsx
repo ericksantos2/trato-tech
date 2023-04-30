@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux';
 import Header from '../../components/Header';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from '../../store';
 import { ICategoria } from '../../store/reducers/categorias';
 import { Iitem } from '../../store/reducers/itens';
 import styles from './Categoria.module.scss';
 import Item from '../../components/Item';
+import Button from '../../components/Button';
 
 export default function Categoria() {
+  const navigate = useNavigate();
   const { nomeCategoria } = useParams();
   const {
     categoria,
@@ -36,7 +38,11 @@ export default function Categoria() {
         titulo={categoria.nome}
         descricao={categoria.descricao}
         imagem={categoria.header}
-      />
+      >
+        <Button onClick={() => navigate(`/anuncie/${nomeCategoria}`)}>
+          Quero anunciar
+        </Button>
+      </Header>
       <div className={styles.itens}>
         {itens?.map((item: Iitem) => (
           <Item key={item.id} {...item} />
