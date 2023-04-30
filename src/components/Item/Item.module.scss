@@ -6,26 +6,37 @@
   flex-direction: column;
   overflow: hidden;
   width: 335px;
+  
   &-descricao {
     background-color: #EFF9FF;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     flex: 1;
+    justify-content: space-between;
   }
+
   &-titulo {
     padding: 16px 16px 0 16px;
+    
+
     h2 {
       color: #1875E8;
       font-size: 20px;
     }
+
     p {
       color: #444;
     }
   }
 
   &-imagem {
+    height: 160px;
     margin: 0 auto;
+    width: 335px;
+    
+    img {
+      width: 100%;
+    }
   }
 
   &-info {
@@ -43,6 +54,7 @@
     justify-content: center;
     width: 170px;
   }
+
   &-acoes {
     align-items: center;
     display: flex;
@@ -63,18 +75,21 @@
 
 .itemNoCarrinho {
   align-items: center;
-  width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+  
   .quantidade {
     align-items: center;
     display: flex;
     gap: 10px;
     justify-content: center;
+    
     svg {
       cursor: pointer;
     }
   }
+
   .item-acoes {
     gap: 50px;
     justify-content: flex-end;
