@@ -4,9 +4,14 @@
   display: flex;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.08));
   flex-direction: column;
-  overflow: hidden;
   width: 335px;
   
+  &-deletar {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+  }
+
   &-descricao {
     background-color: #EFF9FF;
     display: flex;
@@ -18,7 +23,6 @@
   &-titulo {
     padding: 16px 16px 0 16px;
     
-
     h2 {
       color: #1875E8;
       font-size: 20px;
@@ -32,6 +36,7 @@
   &-imagem {
     height: 160px;
     margin: 0 auto;
+    overflow: hidden;
     width: 335px;
     
     img {
