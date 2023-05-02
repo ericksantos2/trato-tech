@@ -1,4 +1,4 @@
-import { Iitem, mudarFavorito, mudarItem } from '../../store/reducers/itens';
+import { Iitem, deletarItem, mudarFavorito, mudarItem } from '../../store/reducers/itens';
 import styles from './Item.module.scss';
 import {
   AiOutlineHeart,
@@ -7,13 +7,14 @@ import {
   AiFillPlusCircle,
   AiOutlineCheck,
   AiFillEdit,
+  AiFillCloseCircle,
 } from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { mudarCarrinho, mudarQuantidade } from '../../store/reducers/carrinho';
 import { RootState } from '../../store';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Input from '../Input';
 
 const iconeProps = {
@@ -30,7 +31,7 @@ interface Props extends Iitem {
   carrinho?: boolean;
 }
 
-export default function Item(props: Props) {
+function Item(props: Props) {
   const { titulo, foto, preco, descricao, favorito, id, carrinho, quantidade } =
     props;
   if (!preco) {
@@ -83,6 +84,11 @@ export default function Item(props: Props) {
         [styles.itemNoCarrinho]: carrinho,
       })}
     >
+      <AiFillCloseCircle
+        {...iconeProps}
+        className={`${styles['item-acao']} ${styles['item-deletar']}`}
+        onClick={() => dispatch(deletarItem(id))}
+      />
       <div className={styles['item-imagem']}>
         <img src={foto} alt={titulo} />
       </div>
@@ -150,3 +156,5 @@ export default function Item(props: Props) {
     </div>
   );
 }
+
+export default memo(Item)
