@@ -5,10 +5,9 @@ import relogio from '@/assets/inicial.png';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
 import Button from '../../components/Button';
-import { useCallback, useEffect } from 'react';
-import instance from '../../common/config/api';
-import { adicionarCategorias } from '../../store/reducers/categorias';
-import { adicionarItens } from '../../store/reducers/itens';
+import { useEffect } from 'react';
+import { buscarCategorias } from '../../store/reducers/categorias';
+import { buscarItens } from '../../store/reducers/itens';
 
 const descricao = 'Compre diversos tipos de produtos no melhor site do Brasil!';
 
@@ -17,20 +16,14 @@ export default function Home() {
   const navigate = useNavigate();
   const categorias = useSelector((state: RootState) => state.categorias);
 
-  const buscarCategorias = useCallback(async () => {
-    const resposta = await instance.get('/categorias');
-    dispatch(adicionarCategorias(resposta.data));
-  }, [dispatch]);
-
-  const buscarItens = useCallback(async () => {
-    const resposta = await instance.get('/itens');
-    dispatch(adicionarItens(resposta.data));
-  }, [dispatch]);
-
   useEffect(() => {
-    buscarCategorias();
-    buscarItens();
-  }, [buscarCategorias, buscarItens]);
+    const categorias: any = buscarCategorias;
+    const itens: any = buscarItens
+    // tive que fazer uma const por causa do erro de tipagem
+    // coloquei any porque eu não consegui tipar e também o tipo disso não muda muita coisa
+    dispatch(categorias());
+    dispatch(itens());
+  }, [dispatch]);
 
   return (
     <div>
