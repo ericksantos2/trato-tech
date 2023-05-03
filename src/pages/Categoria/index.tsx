@@ -20,7 +20,7 @@ export default function Categoria() {
       return {
         categoria: state.categorias.find(
           (categoria) => categoria.id === nomeCategoria
-        ),
+        ) || {},
         itens: state.itens.filter(
           (item) =>
             item.categoria === nomeCategoria && item.titulo?.match(regexp)
@@ -35,8 +35,8 @@ export default function Categoria() {
   return (
     <div>
       <Header
-        titulo={categoria.nome}
-        descricao={categoria.descricao}
+        titulo={categoria.nome || ''}
+        descricao={categoria.descricao || ''}
         imagem={categoria.header}
       >
         <Button onClick={() => navigate(`/anuncie/${nomeCategoria}`)}>
