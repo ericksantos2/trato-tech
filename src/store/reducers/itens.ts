@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import itensService from '../../services/itens';
+import { createStandaloneToast } from '@chakra-ui/toast';
 
 export interface Iitem {
   titulo?: string;
@@ -12,6 +13,8 @@ export interface Iitem {
   quantidade?: number;
   id: string;
 }
+
+const {toast} = createStandaloneToast();
 
 const initialState: Iitem[] = [];
 
@@ -46,8 +49,39 @@ const itensSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(buscarItens.fulfilled, (_, { payload }) => {
+      toast({
+          title: 'Sucesso!',
+          description: 'Itens carregados com sucesso!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true
+        })
       return payload;
-    });
+    })
+    .addCase(
+      buscarItens.pending,
+      (state, { payload }) => {
+        toast({
+          title: 'Carregando',
+          description: 'Carregando itens',
+          status: 'loading',
+          duration: 2000,
+          isClosable: true
+        })
+      }
+    )
+    .addCase(
+      buscarItens.rejected,
+      (state, { payload }) => {
+        toast({
+          title: 'Erro',
+          description: 'Erro na busca de itens',
+          status: 'error',
+          duration: 2000,
+          isClosable: true
+        })
+      }
+    )
   },
 });
 
