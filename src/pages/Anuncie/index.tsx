@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { cadastrarItem } from '../../store/reducers/itens';
 import { useParams } from 'react-router-dom';
 import Input from '../../components/Input';
+import { useEffect } from 'react';
+import { buscarCategorias } from '../../store/reducers/categorias';
 
 interface IDefaultValues {
   titulo?: string;
@@ -34,6 +36,11 @@ export default function Anuncie() {
   function cadastrar(parametro: IDefaultValues) {
     dispatch(cadastrarItem(parametro));
   }
+
+  useEffect(() => {
+    const categorias: any = buscarCategorias;
+    dispatch(categorias());
+  }, [dispatch])
 
   return (
     <div className={styles.container}>
