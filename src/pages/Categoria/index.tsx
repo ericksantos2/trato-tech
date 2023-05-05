@@ -1,15 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from '../../store';
-import { ICategoria } from '../../store/reducers/categorias';
-import { Iitem } from '../../store/reducers/itens';
+import { ICategoria, buscarCategorias } from '../../store/reducers/categorias';
+import { Iitem, buscarItens } from '../../store/reducers/itens';
 import styles from './Categoria.module.scss';
 import Item from '../../components/Item';
 import Button from '../../components/Button';
+import { useEffect } from 'react';
 
 export default function Categoria() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { nomeCategoria } = useParams();
   const {
     categoria,
@@ -31,6 +33,13 @@ export default function Categoria() {
   if (!categoria) {
     throw new Error('Categoria inexistente!');
   }
+
+  useEffect(() => {
+    const categorias: any = buscarCategorias;
+    const itens: any = buscarItens;
+    dispatch(categorias())
+    dispatch(itens())
+  }, [dispatch])
 
   return (
     <div>
